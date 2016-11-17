@@ -1,0 +1,806 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD16\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">18/11/2016</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">10:38:12 a.m.</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:00</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc" class="file"><acronym title="C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc">C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">154</td></tr>
+</table>
+</td>
+</table><a name="IDL0HKLP1O1EKWOIXOKGHDE0PXGEXPWWMGS4JX33NHTTSRSB4G1WMP"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDOSMN5GQUUMYVJDZVVKB1JYTDKNY14AB2MUOP3YJDRDASKV5T0ARG">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDJLFD0UAN0PDVLKGUIJ4XSCG5RMT1ZOHPMB5DC2NYOT3QOLMZRKGG">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDVQTTNYXANNWPIBSVWCLAU1JAHGM3ARAR15BOGMN3VOOMHIJJYHSO">Silk to Silk (Clearance=10mil) (All),(All)</a></td>
+<td class="column2">6</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDL1EIFFPCFIO2E3A50GOP0MAYLAGX21N2C4CTZJLZXUYDD5MS3EC">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</a></td>
+<td class="column2">14</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDFBBKNK1UQ4RFEVCO0LYDXJKEUDWP30V5VYXFLHOBVNEFPZMJLCHO">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</a></td>
+<td class="column2">43</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDXNXVQBN2JOPMJYSGISXKHGMGJPTF22NWRGSMP4EY53YFHLAONY4B">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDAJOZEXRKG2W0GRKUWJS0ORMEWNY3T1OPBCXFVYJSIG4SM1E1AUVK">Hole Size Constraint (Min=1mil) (Max=100mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDEEGLAXNI310ENG55QRI0LPJJHK2ACCUHKUDX004DUJGM3UNVASN">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID043JQ30BNUEGJCQXZUWGUH5MSEKZGQHLPVKW12JCC3UAD1BB0LXK">Width Constraint (Min=10mil) (Max=10mil) (Preferred=10mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDVCAWDDV1FSO3G2XU4QAXWIDRUMB44ONTC41MAZOO4BOVXEFXN0ZN">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDUR1FGC3SKONLK0OZHVOWXEIYQKGBTCQ4W3HYAKGZE5N0OHQBJU1M">Clearance Constraint (Gap=2mil) (All),(All)</a></td>
+<td class="column2">6</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDWWDNDFBHRANDE33SQVB3442CHN2WRX0T3OLWJOFOIJBUCFUMUT">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">85</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID2VKRZ3ZHEZDNPMIHWZNFYMNSPI1SLVPHPNVP2BB3VVYSMGQ1GFPN">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">154</td>
+</tr>
+</table><br><a name="IDVQTTNYXANNWPIBSVWCLAU1JAHGM3ARAR15BOGMN3VOOMHIJJYHSO"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk to Silk (Clearance=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3987.426mil|Location2.X=3995.093mil|Location1.Y=1771.065mil|Location2.Y=1778.732mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3987.426mil|Location2.X=3995.093mil|Location1.Y=1771.065mil|Location2.Y=1778.732mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 10mil) Between Text "USB1" (3909.347mil,1720.33mil) on Top Overlay And Track (3991.26mil,1756.614mil)(3991.26mil,2170mil) on Top Overlay Silk Text to Silk Clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4092.812mil|Location2.X=4100.479mil|Location1.Y=1752.781mil|Location2.Y=1760.447mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4092.812mil|Location2.X=4100.479mil|Location1.Y=1752.781mil|Location2.Y=1760.447mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 10mil) Between Text "USB1" (3909.347mil,1720.33mil) on Top Overlay And Track (3991.26mil,1756.614mil)(4180.236mil,1756.614mil) on Top Overlay Silk Text to Silk Clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4424.383mil|Location2.X=4435.633mil|Location1.Y=3084.179mil|Location2.Y=3095.429mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4424.383mil|Location2.X=4435.633mil|Location1.Y=3084.179mil|Location2.Y=3095.429mil|Absolute=True">Silk To Silk Clearance Constraint: (1.733mil &lt; 10mil) Between Text "6" (4455mil,3095mil) on Top Overlay And Track (4385mil,3085mil)(4585mil,3085mil) on Top Overlay Silk Text to Silk Clearance [1.733mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4499.391mil|Location2.X=4510.641mil|Location1.Y=3084.179mil|Location2.Y=3095.429mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4499.391mil|Location2.X=4510.641mil|Location1.Y=3084.179mil|Location2.Y=3095.429mil|Absolute=True">Silk To Silk Clearance Constraint: (1.733mil &lt; 10mil) Between Text "5" (4555mil,3095mil) on Top Overlay And Track (4385mil,3085mil)(4585mil,3085mil) on Top Overlay Silk Text to Silk Clearance [1.733mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4407.722mil|Location2.X=4418.972mil|Location1.Y=2771.233mil|Location2.Y=2782.483mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4407.722mil|Location2.X=4418.972mil|Location1.Y=2771.233mil|Location2.Y=2782.483mil|Absolute=True">Silk To Silk Clearance Constraint: (8.411mil &lt; 10mil) Between Text "2" (4455mil,2735mil) on Top Overlay And Track (4385mil,2785mil)(4585mil,2785mil) on Top Overlay Silk Text to Silk Clearance [8.411mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4549.375mil|Location2.X=4560.625mil|Location1.Y=2772.902mil|Location2.Y=2784.152mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4549.375mil|Location2.X=4560.625mil|Location1.Y=2772.902mil|Location2.Y=2784.152mil|Absolute=True">Silk To Silk Clearance Constraint: (5.072mil &lt; 10mil) Between Text "1" (4555mil,2755mil) on Top Overlay And Track (4385mil,2785mil)(4585mil,2785mil) on Top Overlay Silk Text to Silk Clearance [5.072mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDL1EIFFPCFIO2E3A50GOP0MAYLAGX21N2C4CTZJLZXUYDD5MS3EC"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3912.117mil|Location2.X=3919.783mil|Location1.Y=2317.303mil|Location2.Y=2324.97mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3912.117mil|Location2.X=3919.783mil|Location1.Y=2317.303mil|Location2.Y=2324.97mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Arc (3915.95mil,2317.2mil) on Top Overlay And Pad Network1-1(3922.362mil,2334.409mil) on Top Layer [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5118.784mil|Location2.X=5130.034mil|Location1.Y=2457.131mil|Location2.Y=2468.381mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5118.784mil|Location2.X=5130.034mil|Location1.Y=2457.131mil|Location2.Y=2468.381mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Track (5124.409mil,2470.63mil)(5175.591mil,2470.63mil) on Top Overlay And Pad R5-1(5150mil,2431.26mil) on Top Layer [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5118.784mil|Location2.X=5130.034mil|Location1.Y=2472.879mil|Location2.Y=2484.129mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5118.784mil|Location2.X=5130.034mil|Location1.Y=2472.879mil|Location2.Y=2484.129mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Track (5124.409mil,2470.63mil)(5175.591mil,2470.63mil) on Top Overlay And Pad R5-2(5150mil,2510mil) on Top Layer [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4973.784mil|Location2.X=4985.034mil|Location1.Y=2457.131mil|Location2.Y=2468.381mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4973.784mil|Location2.X=4985.034mil|Location1.Y=2457.131mil|Location2.Y=2468.381mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Track (4979.409mil,2470.63mil)(5030.591mil,2470.63mil) on Top Overlay And Pad R4-1(5005mil,2431.26mil) on Top Layer [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4973.784mil|Location2.X=4985.034mil|Location1.Y=2472.879mil|Location2.Y=2484.129mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4973.784mil|Location2.X=4985.034mil|Location1.Y=2472.879mil|Location2.Y=2484.129mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Track (4979.409mil,2470.63mil)(5030.591mil,2470.63mil) on Top Overlay And Pad R4-2(5005mil,2510mil) on Top Layer [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4828.784mil|Location2.X=4840.034mil|Location1.Y=2457.131mil|Location2.Y=2468.381mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4828.784mil|Location2.X=4840.034mil|Location1.Y=2457.131mil|Location2.Y=2468.381mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Track (4834.409mil,2470.63mil)(4885.591mil,2470.63mil) on Top Overlay And Pad R3-1(4860mil,2431.26mil) on Top Layer [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4828.784mil|Location2.X=4840.034mil|Location1.Y=2472.879mil|Location2.Y=2484.129mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4828.784mil|Location2.X=4840.034mil|Location1.Y=2472.879mil|Location2.Y=2484.129mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Track (4834.409mil,2470.63mil)(4885.591mil,2470.63mil) on Top Overlay And Pad R3-2(4860mil,2510mil) on Top Layer [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4683.784mil|Location2.X=4695.034mil|Location1.Y=2457.131mil|Location2.Y=2468.381mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4683.784mil|Location2.X=4695.034mil|Location1.Y=2457.131mil|Location2.Y=2468.381mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Track (4689.409mil,2470.63mil)(4740.591mil,2470.63mil) on Top Overlay And Pad R2-1(4715mil,2431.26mil) on Top Layer [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4683.784mil|Location2.X=4695.034mil|Location1.Y=2472.879mil|Location2.Y=2484.129mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4683.784mil|Location2.X=4695.034mil|Location1.Y=2472.879mil|Location2.Y=2484.129mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Track (4689.409mil,2470.63mil)(4740.591mil,2470.63mil) on Top Overlay And Pad R2-2(4715mil,2510mil) on Top Layer [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3909.541mil|Location2.X=3917.207mil|Location1.Y=1779.462mil|Location2.Y=1787.129mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3909.541mil|Location2.X=3917.207mil|Location1.Y=1779.462mil|Location2.Y=1787.129mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Text "USB1" (3909.347mil,1720.33mil) on Top Overlay And Pad FTD1-14(3943.031mil,1790.315mil) on Top Layer [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4489.729mil|Location2.X=4500.979mil|Location1.Y=1847.21mil|Location2.Y=1858.46mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4489.729mil|Location2.X=4500.979mil|Location1.Y=1847.21mil|Location2.Y=1858.46mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Track (4503.228mil,1648.11mil)(4503.228mil,1911.89mil) on Top Overlay And Pad U2-1(4456.968mil,1870.551mil) on Top Layer [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4489.729mil|Location2.X=4500.979mil|Location1.Y=1756.659mil|Location2.Y=1767.909mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4489.729mil|Location2.X=4500.979mil|Location1.Y=1756.659mil|Location2.Y=1767.909mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Track (4503.228mil,1648.11mil)(4503.228mil,1911.89mil) on Top Overlay And Pad U2-2(4456.968mil,1780mil) on Top Layer [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4489.729mil|Location2.X=4500.979mil|Location1.Y=1666.107mil|Location2.Y=1677.357mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4489.729mil|Location2.X=4500.979mil|Location1.Y=1666.107mil|Location2.Y=1677.357mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Track (4503.228mil,1648.11mil)(4503.228mil,1911.89mil) on Top Overlay And Pad U2-3(4456.968mil,1689.449mil) on Top Layer [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4659.021mil|Location2.X=4670.271mil|Location1.Y=1711.383mil|Location2.Y=1722.633mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4659.021mil|Location2.X=4670.271mil|Location1.Y=1711.383mil|Location2.Y=1722.633mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Track (4656.772mil,1648.11mil)(4656.772mil,1911.89mil) on Top Overlay And Pad U2-2(4703.032mil,1780mil) on Top Layer [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDFBBKNK1UQ4RFEVCO0LYDXJKEUDWP30V5VYXFLHOBVNEFPZMJLCHO"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4032.957mil|Location2.X=4044.207mil|Location1.Y=1638.624mil|Location2.Y=1649.874mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4032.957mil|Location2.X=4044.207mil|Location1.Y=1638.624mil|Location2.Y=1649.874mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.78mil &lt; 10mil) Between Pad USB1-1(4053.347mil,1639.33mil) on Top Layer And Pad USB1-6(4014.96mil,1648.186mil) on Multi-Layer [Top Solder] Mask Sliver [5.78mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4160.911mil|Location2.X=4172.161mil|Location1.Y=1637.641mil|Location2.Y=1648.891mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4160.911mil|Location2.X=4172.161mil|Location1.Y=1637.641mil|Location2.Y=1648.891mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.78mil &lt; 10mil) Between Pad USB1-5(4151.772mil,1639.33mil) on Top Layer And Pad USB1-7(4190.158mil,1647.203mil) on Multi-Layer [Top Solder] Mask Sliver [5.78mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3372.816mil|Location2.X=3384.066mil|Location1.Y=2019.375mil|Location2.Y=2030.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3372.816mil|Location2.X=3384.066mil|Location1.Y=2019.375mil|Location2.Y=2030.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (7.748mil &lt; 10mil) Between Pad C8-2(3410mil,2054.528mil) on Top Layer And Pad C8-1(3410mil,1995.473mil) on Top Layer [Top Solder] Mask Sliver [7.748mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3812.816mil|Location2.X=3824.066mil|Location1.Y=2229.375mil|Location2.Y=2240.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3812.816mil|Location2.X=3824.066mil|Location1.Y=2229.375mil|Location2.Y=2240.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (7.748mil &lt; 10mil) Between Pad C4-2(3850mil,2205.472mil) on Top Layer And Pad C4-1(3850mil,2264.528mil) on Top Layer [Top Solder] Mask Sliver [7.748mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3557.816mil|Location2.X=3569.066mil|Location1.Y=2999.375mil|Location2.Y=3010.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3557.816mil|Location2.X=3569.066mil|Location1.Y=2999.375mil|Location2.Y=3010.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (7.748mil &lt; 10mil) Between Pad Y1-2(3595mil,3034.528mil) on Top Layer And Pad Y1-1(3595mil,2975.472mil) on Top Layer [Top Solder] Mask Sliver [7.748mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4737.816mil|Location2.X=4749.066mil|Location1.Y=3689.847mil|Location2.Y=3701.097mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4737.816mil|Location2.X=4749.066mil|Location1.Y=3689.847mil|Location2.Y=3701.097mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (7.748mil &lt; 10mil) Between Pad C7-2(4775mil,3725mil) on Top Layer And Pad C7-1(4775mil,3665.945mil) on Top Layer [Top Solder] Mask Sliver [7.748mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4882.816mil|Location2.X=4894.066mil|Location1.Y=3689.847mil|Location2.Y=3701.097mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4882.816mil|Location2.X=4894.066mil|Location1.Y=3689.847mil|Location2.Y=3701.097mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (7.748mil &lt; 10mil) Between Pad C3-2(4920mil,3725mil) on Top Layer And Pad C3-1(4920mil,3665.945mil) on Top Layer [Top Solder] Mask Sliver [7.748mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5027.816mil|Location2.X=5039.066mil|Location1.Y=3689.847mil|Location2.Y=3701.097mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5027.816mil|Location2.X=5039.066mil|Location1.Y=3689.847mil|Location2.Y=3701.097mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (7.748mil &lt; 10mil) Between Pad C2-2(5065mil,3725mil) on Top Layer And Pad C2-1(5065mil,3665.945mil) on Top Layer [Top Solder] Mask Sliver [7.748mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5172.816mil|Location2.X=5184.066mil|Location1.Y=3689.847mil|Location2.Y=3701.097mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5172.816mil|Location2.X=5184.066mil|Location1.Y=3689.847mil|Location2.Y=3701.097mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (7.748mil &lt; 10mil) Between Pad C1-2(5210mil,3725mil) on Top Layer And Pad C1-1(5210mil,3665.945mil) on Top Layer [Top Solder] Mask Sliver [7.748mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4060.024mil|Location2.X=4071.274mil|Location1.Y=1603.13mil|Location2.Y=1614.38mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4060.024mil|Location2.X=4071.274mil|Location1.Y=1603.13mil|Location2.Y=1614.38mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.858mil &lt; 10mil) Between Pad USB1-2(4077.952mil,1639.33mil) on Top Layer And Pad USB1-1(4053.347mil,1639.33mil) on Top Layer [Top Solder] Mask Sliver [0.858mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4084.631mil|Location2.X=4095.881mil|Location1.Y=1603.13mil|Location2.Y=1614.38mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4084.631mil|Location2.X=4095.881mil|Location1.Y=1603.13mil|Location2.Y=1614.38mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.859mil &lt; 10mil) Between Pad USB1-3(4102.559mil,1639.33mil) on Top Layer And Pad USB1-2(4077.952mil,1639.33mil) on Top Layer [Top Solder] Mask Sliver [0.859mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4109.237mil|Location2.X=4120.487mil|Location1.Y=1603.13mil|Location2.Y=1614.38mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4109.237mil|Location2.X=4120.487mil|Location1.Y=1603.13mil|Location2.Y=1614.38mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.858mil &lt; 10mil) Between Pad USB1-4(4127.166mil,1639.33mil) on Top Layer And Pad USB1-3(4102.559mil,1639.33mil) on Top Layer [Top Solder] Mask Sliver [0.858mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4133.844mil|Location2.X=4145.094mil|Location1.Y=1603.13mil|Location2.Y=1614.38mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4133.844mil|Location2.X=4145.094mil|Location1.Y=1603.13mil|Location2.Y=1614.38mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.858mil &lt; 10mil) Between Pad USB1-5(4151.772mil,1639.33mil) on Top Layer And Pad USB1-4(4127.166mil,1639.33mil) on Top Layer [Top Solder] Mask Sliver [0.858mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3914.769mil|Location2.X=3926.019mil|Location1.Y=3033.863mil|Location2.Y=3045.113mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3914.769mil|Location2.X=3926.019mil|Location1.Y=3033.863mil|Location2.Y=3045.113mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-2(3939.094mil,3023.74mil) on Top Layer And Pad U1-1(3939.094mil,3055.236mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3914.769mil|Location2.X=3926.019mil|Location1.Y=3002.367mil|Location2.Y=3013.617mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3914.769mil|Location2.X=3926.019mil|Location1.Y=3002.367mil|Location2.Y=3013.617mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-3(3939.094mil,2992.244mil) on Top Layer And Pad U1-2(3939.094mil,3023.74mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3914.769mil|Location2.X=3926.019mil|Location1.Y=2970.871mil|Location2.Y=2982.121mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3914.769mil|Location2.X=3926.019mil|Location1.Y=2970.871mil|Location2.Y=2982.121mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-4(3939.094mil,2960.748mil) on Top Layer And Pad U1-3(3939.094mil,2992.244mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3914.769mil|Location2.X=3926.019mil|Location1.Y=2939.375mil|Location2.Y=2950.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3914.769mil|Location2.X=3926.019mil|Location1.Y=2939.375mil|Location2.Y=2950.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-5(3939.094mil,2929.252mil) on Top Layer And Pad U1-4(3939.094mil,2960.748mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3914.769mil|Location2.X=3926.019mil|Location1.Y=2907.879mil|Location2.Y=2919.129mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3914.769mil|Location2.X=3926.019mil|Location1.Y=2907.879mil|Location2.Y=2919.129mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-6(3939.094mil,2897.756mil) on Top Layer And Pad U1-5(3939.094mil,2929.252mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3914.769mil|Location2.X=3926.019mil|Location1.Y=2876.383mil|Location2.Y=2887.633mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3914.769mil|Location2.X=3926.019mil|Location1.Y=2876.383mil|Location2.Y=2887.633mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-7(3939.094mil,2866.26mil) on Top Layer And Pad U1-6(3939.094mil,2897.756mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3914.769mil|Location2.X=3926.019mil|Location1.Y=2844.887mil|Location2.Y=2856.137mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3914.769mil|Location2.X=3926.019mil|Location1.Y=2844.887mil|Location2.Y=2856.137mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-8(3939.094mil,2834.764mil) on Top Layer And Pad U1-7(3939.094mil,2866.26mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4006.304mil|Location2.X=4017.554mil|Location1.Y=2753.351mil|Location2.Y=2764.601mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4006.304mil|Location2.X=4017.554mil|Location1.Y=2753.351mil|Location2.Y=2764.601mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-10(4027.677mil,2777.677mil) on Top Layer And Pad U1-9(3996.181mil,2777.677mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4037.8mil|Location2.X=4049.05mil|Location1.Y=2753.351mil|Location2.Y=2764.601mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4037.8mil|Location2.X=4049.05mil|Location1.Y=2753.351mil|Location2.Y=2764.601mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-11(4059.173mil,2777.677mil) on Top Layer And Pad U1-10(4027.677mil,2777.677mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4069.296mil|Location2.X=4080.546mil|Location1.Y=2753.351mil|Location2.Y=2764.601mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4069.296mil|Location2.X=4080.546mil|Location1.Y=2753.351mil|Location2.Y=2764.601mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-12(4090.669mil,2777.677mil) on Top Layer And Pad U1-11(4059.173mil,2777.677mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4100.792mil|Location2.X=4112.042mil|Location1.Y=2753.351mil|Location2.Y=2764.601mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4100.792mil|Location2.X=4112.042mil|Location1.Y=2753.351mil|Location2.Y=2764.601mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-13(4122.165mil,2777.677mil) on Top Layer And Pad U1-12(4090.669mil,2777.677mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4132.288mil|Location2.X=4143.538mil|Location1.Y=2753.351mil|Location2.Y=2764.601mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4132.288mil|Location2.X=4143.538mil|Location1.Y=2753.351mil|Location2.Y=2764.601mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-14(4153.661mil,2777.677mil) on Top Layer And Pad U1-13(4122.165mil,2777.677mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4163.784mil|Location2.X=4175.034mil|Location1.Y=2753.351mil|Location2.Y=2764.601mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4163.784mil|Location2.X=4175.034mil|Location1.Y=2753.351mil|Location2.Y=2764.601mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-15(4185.157mil,2777.677mil) on Top Layer And Pad U1-14(4153.661mil,2777.677mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4195.28mil|Location2.X=4206.53mil|Location1.Y=2753.351mil|Location2.Y=2764.601mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4195.28mil|Location2.X=4206.53mil|Location1.Y=2753.351mil|Location2.Y=2764.601mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-16(4216.654mil,2777.677mil) on Top Layer And Pad U1-15(4185.157mil,2777.677mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4249.414mil|Location2.X=4260.664mil|Location1.Y=2844.887mil|Location2.Y=2856.137mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4249.414mil|Location2.X=4260.664mil|Location1.Y=2844.887mil|Location2.Y=2856.137mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-18(4273.74mil,2866.26mil) on Top Layer And Pad U1-17(4273.74mil,2834.764mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4249.414mil|Location2.X=4260.664mil|Location1.Y=2876.383mil|Location2.Y=2887.633mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4249.414mil|Location2.X=4260.664mil|Location1.Y=2876.383mil|Location2.Y=2887.633mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-19(4273.74mil,2897.756mil) on Top Layer And Pad U1-18(4273.74mil,2866.26mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4249.414mil|Location2.X=4260.664mil|Location1.Y=2907.879mil|Location2.Y=2919.129mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4249.414mil|Location2.X=4260.664mil|Location1.Y=2907.879mil|Location2.Y=2919.129mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-20(4273.74mil,2929.252mil) on Top Layer And Pad U1-19(4273.74mil,2897.756mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4249.414mil|Location2.X=4260.664mil|Location1.Y=2939.375mil|Location2.Y=2950.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4249.414mil|Location2.X=4260.664mil|Location1.Y=2939.375mil|Location2.Y=2950.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-21(4273.74mil,2960.748mil) on Top Layer And Pad U1-20(4273.74mil,2929.252mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4249.414mil|Location2.X=4260.664mil|Location1.Y=2970.871mil|Location2.Y=2982.121mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4249.414mil|Location2.X=4260.664mil|Location1.Y=2970.871mil|Location2.Y=2982.121mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-22(4273.74mil,2992.244mil) on Top Layer And Pad U1-21(4273.74mil,2960.748mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4249.414mil|Location2.X=4260.664mil|Location1.Y=3002.367mil|Location2.Y=3013.617mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4249.414mil|Location2.X=4260.664mil|Location1.Y=3002.367mil|Location2.Y=3013.617mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-23(4273.74mil,3023.74mil) on Top Layer And Pad U1-22(4273.74mil,2992.244mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4249.414mil|Location2.X=4260.664mil|Location1.Y=3033.863mil|Location2.Y=3045.113mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4249.414mil|Location2.X=4260.664mil|Location1.Y=3033.863mil|Location2.Y=3045.113mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-24(4273.74mil,3055.236mil) on Top Layer And Pad U1-23(4273.74mil,3023.74mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4195.28mil|Location2.X=4206.53mil|Location1.Y=3087.997mil|Location2.Y=3099.247mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4195.28mil|Location2.X=4206.53mil|Location1.Y=3087.997mil|Location2.Y=3099.247mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-26(4185.157mil,3112.323mil) on Top Layer And Pad U1-25(4216.654mil,3112.323mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4163.784mil|Location2.X=4175.034mil|Location1.Y=3087.997mil|Location2.Y=3099.247mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4163.784mil|Location2.X=4175.034mil|Location1.Y=3087.997mil|Location2.Y=3099.247mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-27(4153.661mil,3112.323mil) on Top Layer And Pad U1-26(4185.157mil,3112.323mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4132.288mil|Location2.X=4143.538mil|Location1.Y=3087.997mil|Location2.Y=3099.247mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4132.288mil|Location2.X=4143.538mil|Location1.Y=3087.997mil|Location2.Y=3099.247mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-28(4122.165mil,3112.323mil) on Top Layer And Pad U1-27(4153.661mil,3112.323mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4100.792mil|Location2.X=4112.042mil|Location1.Y=3087.997mil|Location2.Y=3099.247mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4100.792mil|Location2.X=4112.042mil|Location1.Y=3087.997mil|Location2.Y=3099.247mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-29(4090.669mil,3112.323mil) on Top Layer And Pad U1-28(4122.165mil,3112.323mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4069.296mil|Location2.X=4080.546mil|Location1.Y=3087.997mil|Location2.Y=3099.247mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4069.296mil|Location2.X=4080.546mil|Location1.Y=3087.997mil|Location2.Y=3099.247mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-30(4059.173mil,3112.323mil) on Top Layer And Pad U1-29(4090.669mil,3112.323mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4037.8mil|Location2.X=4049.05mil|Location1.Y=3087.997mil|Location2.Y=3099.247mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4037.8mil|Location2.X=4049.05mil|Location1.Y=3087.997mil|Location2.Y=3099.247mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-31(4027.677mil,3112.323mil) on Top Layer And Pad U1-30(4059.173mil,3112.323mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4006.304mil|Location2.X=4017.554mil|Location1.Y=3087.997mil|Location2.Y=3099.247mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4006.304mil|Location2.X=4017.554mil|Location1.Y=3087.997mil|Location2.Y=3099.247mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-32(3996.181mil,3112.323mil) on Top Layer And Pad U1-31(4027.677mil,3112.323mil) on Top Layer [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3557.816mil|Location2.X=3569.066mil|Location1.Y=2629.847mil|Location2.Y=2641.097mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3557.816mil|Location2.X=3569.066mil|Location1.Y=2629.847mil|Location2.Y=2641.097mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (7.748mil &lt; 10mil) Between Pad Y2-2(3595mil,2665mil) on Top Layer And Pad Y2-1(3595mil,2605.945mil) on Top Layer [Top Solder] Mask Sliver [7.748mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3502.816mil|Location2.X=3514.066mil|Location1.Y=2019.375mil|Location2.Y=2030.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3502.816mil|Location2.X=3514.066mil|Location1.Y=2019.375mil|Location2.Y=2030.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (7.748mil &lt; 10mil) Between Pad C9-2(3540mil,2054.528mil) on Top Layer And Pad C9-1(3540mil,1995.473mil) on Top Layer [Top Solder] Mask Sliver [7.748mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDUR1FGC3SKONLK0OZHVOWXEIYQKGBTCQ4W3HYAKGZE5N0OHQBJU1M"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Clearance Constraint (Gap=2mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3930.58mil|Location2.X=3933.83mil|Location1.Y=2318.021mil|Location2.Y=2321.271mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3930.58mil|Location2.X=3933.83mil|Location1.Y=2318.021mil|Location2.Y=2321.271mil|Absolute=True">Clearance Constraint: (1.969mil &lt; 2mil) Between Pad Network1-2(3942.047mil,2334.409mil) on Top Layer And Pad Network1-1(3922.362mil,2334.409mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3950.265mil|Location2.X=3953.515mil|Location1.Y=2318.021mil|Location2.Y=2321.271mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3950.265mil|Location2.X=3953.515mil|Location1.Y=2318.021mil|Location2.Y=2321.271mil|Absolute=True">Clearance Constraint: (1.969mil &lt; 2mil) Between Pad Network1-3(3961.732mil,2334.409mil) on Top Layer And Pad Network1-2(3942.047mil,2334.409mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3969.95mil|Location2.X=3973.2mil|Location1.Y=2318.021mil|Location2.Y=2321.271mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3969.95mil|Location2.X=3973.2mil|Location1.Y=2318.021mil|Location2.Y=2321.271mil|Absolute=True">Clearance Constraint: (1.969mil &lt; 2mil) Between Pad Network1-4(3981.417mil,2334.409mil) on Top Layer And Pad Network1-3(3961.732mil,2334.409mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3930.58mil|Location2.X=3933.83mil|Location1.Y=2369.202mil|Location2.Y=2372.452mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3930.58mil|Location2.X=3933.83mil|Location1.Y=2369.202mil|Location2.Y=2372.452mil|Absolute=True">Clearance Constraint: (1.969mil &lt; 2mil) Between Pad Network1-7(3942.047mil,2385.59mil) on Top Layer And Pad Network1-8(3922.362mil,2385.59mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3950.265mil|Location2.X=3953.515mil|Location1.Y=2369.202mil|Location2.Y=2372.452mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3950.265mil|Location2.X=3953.515mil|Location1.Y=2369.202mil|Location2.Y=2372.452mil|Absolute=True">Clearance Constraint: (1.969mil &lt; 2mil) Between Pad Network1-6(3961.732mil,2385.59mil) on Top Layer And Pad Network1-7(3942.047mil,2385.59mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3969.95mil|Location2.X=3973.2mil|Location1.Y=2369.202mil|Location2.Y=2372.452mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3969.95mil|Location2.X=3973.2mil|Location1.Y=2369.202mil|Location2.Y=2372.452mil|Absolute=True">Clearance Constraint: (1.969mil &lt; 2mil) Between Pad Network1-5(3981.417mil,2385.59mil) on Top Layer And Pad Network1-6(3961.732mil,2385.59mil) on Top Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDWWDNDFBHRANDE33SQVB3442CHN2WRX0T3OLWJOFOIJBUCFUMUT"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3378.441mil|Location2.X=3571.559mil|Location1.Y=1969.819mil|Location2.Y=2021.126mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3378.441mil|Location2.X=3571.559mil|Location1.Y=1969.819mil|Location2.Y=2021.126mil|Absolute=True">Un-Routed Net Constraint: Net VUSB Between Pad C8-1(3410mil,1995.473mil) on Top Layer And Pad C9-1(3540mil,1995.473mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3725.724mil|Location2.X=4065.221mil|Location1.Y=1608.755mil|Location2.Y=1714.276mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3725.724mil|Location2.X=4065.221mil|Location1.Y=1608.755mil|Location2.Y=1714.276mil|Absolute=True">Un-Routed Net Constraint: Net VUSB Between Pad Diode1-1(3775mil,1665mil) on Top Layer And Pad USB1-1(4053.347mil,1639.33mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3508.441mil|Location2.X=3824.276mil|Location1.Y=1615.724mil|Location2.Y=2021.126mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3508.441mil|Location2.X=3824.276mil|Location1.Y=1615.724mil|Location2.Y=2021.126mil|Absolute=True">Un-Routed Net Constraint: Net VUSB Between Pad C9-1(3540mil,1995.473mil) on Top Layer And Pad Diode1-1(3775mil,1665mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4418.52mil|Location2.X=5348.528mil|Location1.Y=1848.835mil|Location2.Y=2378.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4418.52mil|Location2.X=5348.528mil|Location1.Y=1848.835mil|Location2.Y=2378.528mil|Absolute=True">Un-Routed Net Constraint: Net VIN Between Pad U2-1(4456.968mil,1870.551mil) on Top Layer And Pad P2-1(5315mil,2345mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3906.551mil|Location2.X=3979.512mil|Location1.Y=2016mil|Location2.Y=2404.354mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3906.551mil|Location2.X=3979.512mil|Location1.Y=2016mil|Location2.Y=2404.354mil|Absolute=True">Un-Routed Net Constraint: Net TX2 Between Pad FTD1-5(3943.031mil,2029.842mil) on Top Layer And Pad Network1-6(3961.732mil,2385.59mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4501.472mil|Location2.X=4748.528mil|Location1.Y=2478.441mil|Location2.Y=2968.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4501.472mil|Location2.X=4748.528mil|Location1.Y=2478.441mil|Location2.Y=2968.528mil|Absolute=True">Un-Routed Net Constraint: Net SCK Between Pad P3-3(4535mil,2935mil) on Multi-Layer And Pad R2-2(4715mil,2510mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4240.213mil|Location2.X=5348.528mil|Location1.Y=2819.937mil|Location2.Y=3778.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4240.213mil|Location2.X=5348.528mil|Location1.Y=2819.937mil|Location2.Y=3778.528mil|Absolute=True">Un-Routed Net Constraint: Net SCK D13 Between Pad U1-17(4273.74mil,2834.764mil) on Top Layer And Pad P2-15(5315mil,3745mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3906.551mil|Location2.X=3979.512mil|Location1.Y=2122.457mil|Location2.Y=2404.354mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3906.551mil|Location2.X=3979.512mil|Location1.Y=2122.457mil|Location2.Y=2404.354mil|Absolute=True">Un-Routed Net Constraint: Net RX2 Between Pad Network1-7(3942.047mil,2385.59mil) on Top Layer And Pad FTD1-1(3943.031mil,2136.299mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3818.441mil|Location2.X=3935.22mil|Location1.Y=2238.874mil|Location2.Y=2404.354mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3818.441mil|Location2.X=3935.22mil|Location1.Y=2238.874mil|Location2.Y=2404.354mil|Absolute=True">Un-Routed Net Constraint: Net RESET Between Pad C4-1(3850mil,2264.528mil) on Top Layer And Pad Network1-8(3922.362mil,2385.59mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3935.803mil|Location2.X=4105.496mil|Location1.Y=3078.795mil|Location2.Y=3518.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3935.803mil|Location2.X=4105.496mil|Location1.Y=3078.795mil|Location2.Y=3518.528mil|Absolute=True">Un-Routed Net Constraint: Net RESET Between Pad SW1-2(3985.079mil,3485mil) on Top Layer And Pad U1-29(4090.669mil,3112.323mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4075.843mil|Location2.X=4568.528mil|Location1.Y=3001.472mil|Location2.Y=3145.85mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4075.843mil|Location2.X=4568.528mil|Location1.Y=3001.472mil|Location2.Y=3145.85mil|Absolute=True">Un-Routed Net Constraint: Net RESET Between Pad U1-29(4090.669mil,3112.323mil) on Top Layer And Pad P3-5(4535mil,3035mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.472mil|Location2.X=3935.22mil|Location1.Y=2366.827mil|Location2.Y=2568.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.472mil|Location2.X=3935.22mil|Location1.Y=2366.827mil|Location2.Y=2568.528mil|Absolute=True">Un-Routed Net Constraint: Net RESET Between Pad P1-3(2915mil,2535mil) on Multi-Layer And Pad Network1-8(3922.362mil,2385.59mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4501.472mil|Location2.X=5348.528mil|Location1.Y=2511.472mil|Location2.Y=3068.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4501.472mil|Location2.X=5348.528mil|Location1.Y=2511.472mil|Location2.Y=3068.528mil|Absolute=True">Un-Routed Net Constraint: Net RESET Between Pad P3-5(4535mil,3035mil) on Multi-Layer And Pad P2-3(5315mil,2545mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3909.504mil|Location2.X=4105.496mil|Location1.Y=2366.827mil|Location2.Y=3145.85mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3909.504mil|Location2.X=4105.496mil|Location1.Y=2366.827mil|Location2.Y=3145.85mil|Absolute=True">Un-Routed Net Constraint: Net RESET Between Pad Network1-8(3922.362mil,2385.59mil) on Top Layer And Pad U1-29(4090.669mil,3112.323mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4971.472mil|Location2.X=5215.181mil|Location1.Y=2180.528mil|Location2.Y=2462.819mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4971.472mil|Location2.X=5215.181mil|Location1.Y=2180.528mil|Location2.Y=2462.819mil|Absolute=True">Un-Routed Net Constraint: Net NetD3_1 Between Pad R4-1(5005mil,2431.26mil) on Top Layer And Pad D3-1(5160mil,2214.055mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4826.472mil|Location2.X=4992.681mil|Location1.Y=2180.528mil|Location2.Y=2462.819mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4826.472mil|Location2.X=4992.681mil|Location1.Y=2180.528mil|Location2.Y=2462.819mil|Absolute=True">Un-Routed Net Constraint: Net NetD2_1 Between Pad R3-1(4860mil,2431.26mil) on Top Layer And Pad D2-1(4937.5mil,2214.055mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4659.819mil|Location2.X=4770.181mil|Location1.Y=2180.528mil|Location2.Y=2462.819mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4659.819mil|Location2.X=4770.181mil|Location1.Y=2180.528mil|Location2.Y=2462.819mil|Absolute=True">Un-Routed Net Constraint: Net NetD1_1 Between Pad R2-1(4715mil,2431.26mil) on Top Layer And Pad D1-1(4715mil,2214.055mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3818.441mil|Location2.X=3979.512mil|Location1.Y=2095.843mil|Location2.Y=2231.126mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3818.441mil|Location2.X=3979.512mil|Location1.Y=2095.843mil|Location2.Y=2231.126mil|Absolute=True">Un-Routed Net Constraint: Net NetC4_2 Between Pad C4-2(3850mil,2205.472mil) on Top Layer And Pad FTD1-2(3943.031mil,2109.685mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4170.331mil|Location2.X=4468.528mil|Location1.Y=2744.15mil|Location2.Y=2968.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4170.331mil|Location2.X=4468.528mil|Location1.Y=2744.15mil|Location2.Y=2968.528mil|Absolute=True">Un-Routed Net Constraint: Net MOSI D11 Between Pad U1-15(4185.157mil,2777.677mil) on Top Layer And Pad P3-4(4435mil,2935mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.472mil|Location2.X=4199.984mil|Location1.Y=2744.15mil|Location2.Y=3668.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.472mil|Location2.X=4199.984mil|Location1.Y=2744.15mil|Location2.Y=3668.528mil|Absolute=True">Un-Routed Net Constraint: Net MOSI D11 Between Pad P1-14(2915mil,3635mil) on Multi-Layer And Pad U1-15(4185.157mil,2777.677mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4201.827mil|Location2.X=4568.528mil|Location1.Y=2744.15mil|Location2.Y=2868.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4201.827mil|Location2.X=4568.528mil|Location1.Y=2744.15mil|Location2.Y=2868.528mil|Absolute=True">Un-Routed Net Constraint: Net MISO D12 Between Pad U1-16(4216.654mil,2777.677mil) on Top Layer And Pad P3-1(4535mil,2835mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.472mil|Location2.X=4231.48mil|Location1.Y=2744.15mil|Location2.Y=3768.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.472mil|Location2.X=4231.48mil|Location1.Y=2744.15mil|Location2.Y=3768.528mil|Absolute=True">Un-Routed Net Constraint: Net MISO D12 Between Pad P1-15(2915mil,3735mil) on Multi-Layer And Pad U1-16(4216.654mil,2777.677mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4139.898mil|Location2.X=4210.89mil|Location1.Y=1608.755mil|Location2.Y=1671.872mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4139.898mil|Location2.X=4210.89mil|Location1.Y=1608.755mil|Location2.Y=1671.872mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad USB1-5(4151.772mil,1639.33mil) on Top Layer And Pad USB1-7(4190.158mil,1647.203mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3905.567mil|Location2.X=3972.622mil|Location1.Y=2914.425mil|Location2.Y=3007.071mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3905.567mil|Location2.X=3972.622mil|Location1.Y=2914.425mil|Location2.Y=3007.071mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-5(3939.094mil,2929.252mil) on Top Layer And Pad U1-3(3939.094mil,2992.244mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4191.984mil|Location2.X=4264.945mil|Location1.Y=1856.315mil|Location2.Y=1963.842mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4191.984mil|Location2.X=4264.945mil|Location1.Y=1856.315mil|Location2.Y=1963.842mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad FTD1-18(4228.465mil,1870.158mil) on Top Layer And Pad FTD1-21(4228.465mil,1950mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4191.984mil|Location2.X=4264.945mil|Location1.Y=1936.158mil|Location2.Y=2070.299mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4191.984mil|Location2.X=4264.945mil|Location1.Y=1936.158mil|Location2.Y=2070.299mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad FTD1-21(4228.465mil,1950mil) on Top Layer And Pad FTD1-25(4228.465mil,2056.457mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3378.441mil|Location2.X=3571.559mil|Location1.Y=2028.874mil|Location2.Y=2080.181mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3378.441mil|Location2.X=3571.559mil|Location1.Y=2028.874mil|Location2.Y=2080.181mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C8-2(3410mil,2054.528mil) on Top Layer And Pad C9-2(3540mil,2054.528mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4743.441mil|Location2.X=4951.559mil|Location1.Y=3640.291mil|Location2.Y=3691.598mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4743.441mil|Location2.X=4951.559mil|Location1.Y=3640.291mil|Location2.Y=3691.598mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C7-1(4775mil,3665.945mil) on Top Layer And Pad C3-1(4920mil,3665.945mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4888.441mil|Location2.X=5096.559mil|Location1.Y=3640.291mil|Location2.Y=3691.598mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4888.441mil|Location2.X=5096.559mil|Location1.Y=3640.291mil|Location2.Y=3691.598mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C3-1(4920mil,3665.945mil) on Top Layer And Pad C2-1(5065mil,3665.945mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3994.228mil|Location2.X=4163.646mil|Location1.Y=1608.755mil|Location2.Y=1672.855mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3994.228mil|Location2.X=4163.646mil|Location1.Y=1608.755mil|Location2.Y=1672.855mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad USB1-6(4014.96mil,1648.186mil) on Multi-Layer And Pad USB1-5(4151.772mil,1639.33mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5116.472mil|Location2.X=5348.528mil|Location1.Y=2399.701mil|Location2.Y=2478.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5116.472mil|Location2.X=5348.528mil|Location1.Y=2399.701mil|Location2.Y=2478.528mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R5-1(5150mil,2431.26mil) on Top Layer And Pad P2-2(5315mil,2445mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4169.426mil|Location2.X=4286.688mil|Location1.Y=1501.473mil|Location2.Y=1671.872mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4169.426mil|Location2.X=4286.688mil|Location1.Y=1501.473mil|Location2.Y=1671.872mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad USB1-7(4190.158mil,1647.203mil) on Multi-Layer And Pad USB1-9(4266.94mil,1535mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3918.436mil|Location2.X=4035.693mil|Location1.Y=1501.473mil|Location2.Y=1672.855mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3918.436mil|Location2.X=4035.693mil|Location1.Y=1501.473mil|Location2.Y=1672.855mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad USB1-8(3938.184mil,1535mil) on Multi-Layer And Pad USB1-6(4014.96mil,1648.186mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5033.441mil|Location2.X=5241.559mil|Location1.Y=3640.291mil|Location2.Y=3750.653mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5033.441mil|Location2.X=5241.559mil|Location1.Y=3640.291mil|Location2.Y=3750.653mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C2-1(5065mil,3665.945mil) on Top Layer And Pad C1-2(5210mil,3725mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4240.213mil|Location2.X=4468.528mil|Location1.Y=2945.921mil|Location2.Y=3068.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4240.213mil|Location2.X=4468.528mil|Location1.Y=2945.921mil|Location2.Y=3068.528mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-21(4273.74mil,2960.748mil) on Top Layer And Pad P3-6(4435mil,3035mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4418.52mil|Location2.X=4741.48mil|Location1.Y=1713.008mil|Location2.Y=1846.992mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4418.52mil|Location2.X=4741.48mil|Location1.Y=1713.008mil|Location2.Y=1846.992mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U2-2(4456.968mil,1780mil) on Top Layer And Pad U2-2(4703.032mil,1780mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3906.551mil|Location2.X=4264.945mil|Location1.Y=1936.158mil|Location2.Y=1990.457mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3906.551mil|Location2.X=4264.945mil|Location1.Y=1936.158mil|Location2.Y=1990.457mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad FTD1-7(3943.031mil,1976.614mil) on Top Layer And Pad FTD1-21(4228.465mil,1950mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4659.819mil|Location2.X=4770.181mil|Location1.Y=1713.008mil|Location2.Y=2129.472mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4659.819mil|Location2.X=4770.181mil|Location1.Y=1713.008mil|Location2.Y=2129.472mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U2-2(4703.032mil,1780mil) on Top Layer And Pad D1-2(4715mil,2095.945mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3563.441mil|Location2.X=3972.622mil|Location1.Y=2949.819mil|Location2.Y=3007.071mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3563.441mil|Location2.X=3972.622mil|Location1.Y=2949.819mil|Location2.Y=3007.071mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Y1-1(3595mil,2975.472mil) on Top Layer And Pad U1-3(3939.094mil,2992.244mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3563.441mil|Location2.X=3626.559mil|Location1.Y=2580.291mil|Location2.Y=3001.126mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3563.441mil|Location2.X=3626.559mil|Location1.Y=2580.291mil|Location2.Y=3001.126mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Y1-1(3595mil,2975.472mil) on Top Layer And Pad Y2-1(3595mil,2605.945mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4200.724mil|Location2.X=4307.268mil|Location1.Y=2945.921mil|Location2.Y=3518.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4200.724mil|Location2.X=4307.268mil|Location1.Y=2945.921mil|Location2.Y=3518.528mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad SW1-1(4250mil,3485mil) on Top Layer And Pad U1-21(4273.74mil,2960.748mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.472mil|Location2.X=3626.559mil|Location1.Y=2580.291mil|Location2.Y=2668.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.472mil|Location2.X=3626.559mil|Location1.Y=2580.291mil|Location2.Y=2668.528mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad P1-4(2915mil,2635mil) on Multi-Layer And Pad Y2-1(3595mil,2605.945mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4169.426mil|Location2.X=4264.945mil|Location1.Y=1622.534mil|Location2.Y=1884mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4169.426mil|Location2.X=4264.945mil|Location1.Y=1622.534mil|Location2.Y=1884mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad USB1-7(4190.158mil,1647.203mil) on Multi-Layer And Pad FTD1-18(4228.465mil,1870.158mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4191.984mil|Location2.X=4495.417mil|Location1.Y=1758.284mil|Location2.Y=1884mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4191.984mil|Location2.X=4495.417mil|Location1.Y=1758.284mil|Location2.Y=1884mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad FTD1-18(4228.465mil,1870.158mil) on Top Layer And Pad U2-2(4456.968mil,1780mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3905.567mil|Location2.X=4307.268mil|Location1.Y=2945.921mil|Location2.Y=3007.071mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3905.567mil|Location2.X=4307.268mil|Location1.Y=2945.921mil|Location2.Y=3007.071mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-3(3939.094mil,2992.244mil) on Top Layer And Pad U1-21(4273.74mil,2960.748mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3508.441mil|Location2.X=3979.512mil|Location1.Y=1962.772mil|Location2.Y=2080.181mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3508.441mil|Location2.X=3979.512mil|Location1.Y=1962.772mil|Location2.Y=2080.181mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C9-2(3540mil,2054.528mil) on Top Layer And Pad FTD1-7(3943.031mil,1976.614mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4200.724mil|Location2.X=4806.559mil|Location1.Y=3451.472mil|Location2.Y=3691.598mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4200.724mil|Location2.X=4806.559mil|Location1.Y=3451.472mil|Location2.Y=3691.598mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad SW1-1(4250mil,3485mil) on Top Layer And Pad C7-1(4775mil,3665.945mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4659.819mil|Location2.X=5183.528mil|Location1.Y=2062.417mil|Location2.Y=2462.819mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4659.819mil|Location2.X=5183.528mil|Location1.Y=2062.417mil|Location2.Y=2462.819mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad D1-2(4715mil,2095.945mil) on Top Layer And Pad R5-1(5150mil,2431.26mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3508.441mil|Location2.X=3626.559mil|Location1.Y=2028.874mil|Location2.Y=2631.598mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3508.441mil|Location2.X=3626.559mil|Location1.Y=2028.874mil|Location2.Y=2631.598mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C9-2(3540mil,2054.528mil) on Top Layer And Pad Y2-1(3595mil,2605.945mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4066.078mil|Location2.X=4264.945mil|Location1.Y=1608.755mil|Location2.Y=1830.772mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4066.078mil|Location2.X=4264.945mil|Location1.Y=1608.755mil|Location2.Y=1830.772mil|Absolute=True">Un-Routed Net Constraint: Net D- Between Pad USB1-2(4077.952mil,1639.33mil) on Top Layer And Pad FTD1-16(4228.465mil,1816.929mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4090.685mil|Location2.X=4264.945mil|Location1.Y=1608.755mil|Location2.Y=1804.157mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4090.685mil|Location2.X=4264.945mil|Location1.Y=1608.755mil|Location2.Y=1804.157mil|Absolute=True">Un-Routed Net Constraint: Net D+ Between Pad USB1-3(4102.559mil,1639.33mil) on Top Layer And Pad FTD1-15(4228.465mil,1790.315mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.472mil|Location2.X=4168.488mil|Location1.Y=2744.15mil|Location2.Y=3568.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.472mil|Location2.X=4168.488mil|Location1.Y=2744.15mil|Location2.Y=3568.528mil|Absolute=True">Un-Routed Net Constraint: Net D10 Between Pad P1-13(2915mil,3535mil) on Multi-Layer And Pad U1-14(4153.661mil,2777.677mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.472mil|Location2.X=4136.992mil|Location1.Y=2744.15mil|Location2.Y=3468.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.472mil|Location2.X=4136.992mil|Location1.Y=2744.15mil|Location2.Y=3468.528mil|Absolute=True">Un-Routed Net Constraint: Net D9 Between Pad P1-12(2915mil,3435mil) on Multi-Layer And Pad U1-13(4122.165mil,2777.677mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.472mil|Location2.X=4105.496mil|Location1.Y=2744.15mil|Location2.Y=3368.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.472mil|Location2.X=4105.496mil|Location1.Y=2744.15mil|Location2.Y=3368.528mil|Absolute=True">Un-Routed Net Constraint: Net D8 Between Pad P1-11(2915mil,3335mil) on Multi-Layer And Pad U1-12(4090.669mil,2777.677mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.472mil|Location2.X=4074mil|Location1.Y=2744.15mil|Location2.Y=3268.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.472mil|Location2.X=4074mil|Location1.Y=2744.15mil|Location2.Y=3268.528mil|Absolute=True">Un-Routed Net Constraint: Net D7 Between Pad P1-10(2915mil,3235mil) on Multi-Layer And Pad U1-11(4059.173mil,2777.677mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.472mil|Location2.X=4042.504mil|Location1.Y=2744.15mil|Location2.Y=3168.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.472mil|Location2.X=4042.504mil|Location1.Y=2744.15mil|Location2.Y=3168.528mil|Absolute=True">Un-Routed Net Constraint: Net D6 Between Pad P1-9(2915mil,3135mil) on Multi-Layer And Pad U1-10(4027.677mil,2777.677mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.472mil|Location2.X=4011.008mil|Location1.Y=2744.15mil|Location2.Y=3068.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.472mil|Location2.X=4011.008mil|Location1.Y=2744.15mil|Location2.Y=3068.528mil|Absolute=True">Un-Routed Net Constraint: Net D5 Between Pad P1-8(2915mil,3035mil) on Multi-Layer And Pad U1-9(3996.181mil,2777.677mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.472mil|Location2.X=4011.008mil|Location1.Y=2701.472mil|Location2.Y=3145.85mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2881.472mil|Location2.X=4011.008mil|Location1.Y=2701.472mil|Location2.Y=3145.85mil|Absolute=True">Un-Routed Net Constraint: Net D2 Between Pad P1-5(2915mil,2735mil) on Multi-Layer And Pad U1-32(3996.181mil,3112.323mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4191.984mil|Location2.X=5215.181mil|Location1.Y=1962.772mil|Location2.Y=2129.472mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4191.984mil|Location2.X=5215.181mil|Location1.Y=1962.772mil|Location2.Y=2129.472mil|Absolute=True">Un-Routed Net Constraint: Net CBUS1 Between Pad FTD1-22(4228.465mil,1976.614mil) on Top Layer And Pad D3-2(5160mil,2095.945mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4191.984mil|Location2.X=4992.681mil|Location1.Y=1989.386mil|Location2.Y=2129.472mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4191.984mil|Location2.X=4992.681mil|Location1.Y=1989.386mil|Location2.Y=2129.472mil|Absolute=True">Un-Routed Net Constraint: Net CBUS0 Between Pad FTD1-23(4228.465mil,2003.228mil) on Top Layer And Pad D2-2(4937.5mil,2095.945mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5178.441mil|Location2.X=5348.528mil|Location1.Y=3511.472mil|Location2.Y=3691.598mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5178.441mil|Location2.X=5348.528mil|Location1.Y=3511.472mil|Location2.Y=3691.598mil|Absolute=True">Un-Routed Net Constraint: Net AREF Between Pad C1-1(5210mil,3665.945mil) on Top Layer And Pad P2-13(5315mil,3545mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4240.213mil|Location2.X=5348.528mil|Location1.Y=2914.425mil|Location2.Y=3578.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4240.213mil|Location2.X=5348.528mil|Location1.Y=2914.425mil|Location2.Y=3578.528mil|Absolute=True">Un-Routed Net Constraint: Net AREF Between Pad U1-20(4273.74mil,2929.252mil) on Top Layer And Pad P2-13(5315mil,3545mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4240.213mil|Location2.X=5348.528mil|Location1.Y=2711.472mil|Location2.Y=3007.071mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4240.213mil|Location2.X=5348.528mil|Location1.Y=2711.472mil|Location2.Y=3007.071mil|Absolute=True">Un-Routed Net Constraint: Net A7 Between Pad U1-22(4273.74mil,2992.244mil) on Top Layer And Pad P2-5(5315mil,2745mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4240.213mil|Location2.X=5348.528mil|Location1.Y=2811.472mil|Location2.Y=2912.583mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4240.213mil|Location2.X=5348.528mil|Location1.Y=2811.472mil|Location2.Y=2912.583mil|Absolute=True">Un-Routed Net Constraint: Net A6 Between Pad U1-19(4273.74mil,2897.756mil) on Top Layer And Pad P2-6(5315mil,2845mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4107.339mil|Location2.X=5348.528mil|Location1.Y=2911.472mil|Location2.Y=3145.85mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4107.339mil|Location2.X=5348.528mil|Location1.Y=2911.472mil|Location2.Y=3145.85mil|Absolute=True">Un-Routed Net Constraint: Net A5 Between Pad U1-28(4122.165mil,3112.323mil) on Top Layer And Pad P2-7(5315mil,2945mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4138.835mil|Location2.X=5348.528mil|Location1.Y=3011.472mil|Location2.Y=3145.85mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4138.835mil|Location2.X=5348.528mil|Location1.Y=3011.472mil|Location2.Y=3145.85mil|Absolute=True">Un-Routed Net Constraint: Net A4 Between Pad U1-27(4153.661mil,3112.323mil) on Top Layer And Pad P2-8(5315mil,3045mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4170.331mil|Location2.X=5348.528mil|Location1.Y=3078.795mil|Location2.Y=3178.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4170.331mil|Location2.X=5348.528mil|Location1.Y=3078.795mil|Location2.Y=3178.528mil|Absolute=True">Un-Routed Net Constraint: Net A3 Between Pad U1-26(4185.157mil,3112.323mil) on Top Layer And Pad P2-9(5315mil,3145mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4201.827mil|Location2.X=5348.528mil|Location1.Y=3078.795mil|Location2.Y=3278.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4201.827mil|Location2.X=5348.528mil|Location1.Y=3078.795mil|Location2.Y=3278.528mil|Absolute=True">Un-Routed Net Constraint: Net A2 Between Pad U1-25(4216.654mil,3112.323mil) on Top Layer And Pad P2-10(5315mil,3245mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4240.213mil|Location2.X=5348.528mil|Location1.Y=3040.41mil|Location2.Y=3378.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4240.213mil|Location2.X=5348.528mil|Location1.Y=3040.41mil|Location2.Y=3378.528mil|Absolute=True">Un-Routed Net Constraint: Net A1 Between Pad U1-24(4273.74mil,3055.236mil) on Top Layer And Pad P2-11(5315mil,3345mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4240.213mil|Location2.X=5348.528mil|Location1.Y=3008.913mil|Location2.Y=3478.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4240.213mil|Location2.X=5348.528mil|Location1.Y=3008.913mil|Location2.Y=3478.528mil|Absolute=True">Un-Routed Net Constraint: Net A0 Between Pad U1-23(4273.74mil,3023.74mil) on Top Layer And Pad P2-12(5315mil,3445mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4888.441mil|Location2.X=5096.559mil|Location1.Y=3699.347mil|Location2.Y=3750.653mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4888.441mil|Location2.X=5096.559mil|Location1.Y=3699.347mil|Location2.Y=3750.653mil|Absolute=True">Un-Routed Net Constraint: Net 5V Between Pad C3-2(4920mil,3725mil) on Top Layer And Pad C2-2(5065mil,3725mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4971.472mil|Location2.X=5183.528mil|Location1.Y=2478.441mil|Location2.Y=2541.559mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4971.472mil|Location2.X=5183.528mil|Location1.Y=2478.441mil|Location2.Y=2541.559mil|Absolute=True">Un-Routed Net Constraint: Net 5V Between Pad R4-2(5005mil,2510mil) on Top Layer And Pad R5-2(5150mil,2510mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4826.472mil|Location2.X=5038.528mil|Location1.Y=2478.441mil|Location2.Y=2541.559mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4826.472mil|Location2.X=5038.528mil|Location1.Y=2478.441mil|Location2.Y=2541.559mil|Absolute=True">Un-Routed Net Constraint: Net 5V Between Pad R3-2(4860mil,2510mil) on Top Layer And Pad R4-2(5005mil,2510mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4240.213mil|Location2.X=4468.528mil|Location1.Y=2801.472mil|Location2.Y=2881.086mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4240.213mil|Location2.X=4468.528mil|Location1.Y=2801.472mil|Location2.Y=2881.086mil|Absolute=True">Un-Routed Net Constraint: Net 5V Between Pad U1-18(4273.74mil,2866.26mil) on Top Layer And Pad P3-2(4435mil,2835mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3906.551mil|Location2.X=3979.512mil|Location1.Y=2042.614mil|Location2.Y=2353.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3906.551mil|Location2.X=3979.512mil|Location1.Y=2042.614mil|Location2.Y=2353.173mil|Absolute=True">Un-Routed Net Constraint: Net 5V Between Pad Network1-1(3922.362mil,2334.409mil) on Top Layer And Pad FTD1-4(3943.031mil,2056.457mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5116.472mil|Location2.X=5348.528mil|Location1.Y=2478.441mil|Location2.Y=2678.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5116.472mil|Location2.X=5348.528mil|Location1.Y=2478.441mil|Location2.Y=2678.528mil|Absolute=True">Un-Routed Net Constraint: Net 5V Between Pad R5-2(5150mil,2510mil) on Top Layer And Pad P2-4(5315mil,2645mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3905.567mil|Location2.X=4307.268mil|Location1.Y=2851.433mil|Location2.Y=2912.583mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3905.567mil|Location2.X=4307.268mil|Location1.Y=2851.433mil|Location2.Y=2912.583mil|Absolute=True">Un-Routed Net Constraint: Net 5V Between Pad U1-6(3939.094mil,2897.756mil) on Top Layer And Pad U1-18(4273.74mil,2866.26mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3725.724mil|Location2.X=3979.512mil|Location1.Y=1792.89mil|Location2.Y=2070.299mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3725.724mil|Location2.X=3979.512mil|Location1.Y=1792.89mil|Location2.Y=2070.299mil|Absolute=True">Un-Routed Net Constraint: Net 5V Between Pad Diode1-2(3775mil,1842.165mil) on Top Layer And Pad FTD1-4(3943.031mil,2056.457mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3906.551mil|Location2.X=4264.945mil|Location1.Y=1909.543mil|Location2.Y=2070.299mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3906.551mil|Location2.X=4264.945mil|Location1.Y=1909.543mil|Location2.Y=2070.299mil|Absolute=True">Un-Routed Net Constraint: Net 5V Between Pad FTD1-4(3943.031mil,2056.457mil) on Top Layer And Pad FTD1-20(4228.465mil,1923.386mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4191.984mil|Location2.X=4495.417mil|Location1.Y=1667.732mil|Location2.Y=1937.228mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4191.984mil|Location2.X=4495.417mil|Location1.Y=1667.732mil|Location2.Y=1937.228mil|Absolute=True">Un-Routed Net Constraint: Net 5V Between Pad FTD1-20(4228.465mil,1923.386mil) on Top Layer And Pad U2-3(4456.968mil,1689.449mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3905.567mil|Location2.X=3972.622mil|Location1.Y=2315.646mil|Location2.Y=2912.583mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3905.567mil|Location2.X=3972.622mil|Location1.Y=2315.646mil|Location2.Y=2912.583mil|Absolute=True">Un-Routed Net Constraint: Net 5V Between Pad Network1-1(3922.362mil,2334.409mil) on Top Layer And Pad U1-6(3939.094mil,2897.756mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4401.472mil|Location2.X=4893.528mil|Location1.Y=2478.441mil|Location2.Y=2868.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4401.472mil|Location2.X=4893.528mil|Location1.Y=2478.441mil|Location2.Y=2868.528mil|Absolute=True">Un-Routed Net Constraint: Net 5V Between Pad P3-2(4435mil,2835mil) on Multi-Layer And Pad R3-2(4860mil,2510mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4971.472mil|Location2.X=5096.559mil|Location1.Y=2478.441mil|Location2.Y=3750.653mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4971.472mil|Location2.X=5096.559mil|Location1.Y=2478.441mil|Location2.Y=3750.653mil|Absolute=True">Un-Routed Net Constraint: Net 5V Between Pad R4-2(5005mil,2510mil) on Top Layer And Pad C2-2(5065mil,3725mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4743.441mil|Location2.X=5348.528mil|Location1.Y=3611.472mil|Location2.Y=3750.653mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4743.441mil|Location2.X=5348.528mil|Location1.Y=3611.472mil|Location2.Y=3750.653mil|Absolute=True">Un-Routed Net Constraint: Net 3V3 Between Pad C7-2(4775mil,3725mil) on Top Layer And Pad P2-14(5315mil,3645mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4191.984mil|Location2.X=4806.559mil|Location1.Y=1829.701mil|Location2.Y=3750.653mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4191.984mil|Location2.X=4806.559mil|Location1.Y=1829.701mil|Location2.Y=3750.653mil|Absolute=True">Un-Routed Net Constraint: Net 3V3 Between Pad FTD1-17(4228.465mil,1843.543mil) on Top Layer And Pad C7-2(4775mil,3725mil) on Top Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>
