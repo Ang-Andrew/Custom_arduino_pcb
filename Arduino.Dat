@@ -1,0 +1,15 @@
+﻿Field=#~Integer~#~50|Field=Comment~String~Comment~100|Field=Description~String~Description~100|Field=Designator~String~Designator~100|Field=Footprint~String~Footprint~100|Field=LibRef~String~LibRef~100|Field=Quantity~Integer~Quantity~100|ReportField=Currency~<none>|ReportField=ProductionQuantity~1|ReportField=ProjectFileName~Arduino.PrjPcb|ReportField=ProjectFullPath~C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\Arduino.PrjPcb|ReportField=Title~Bill of Materials For Project [Arduino.PrjPcb] (No PCB Document Selected)|ReportField=TotalQuantity~27|ReportField=ReportTime~8:49:18 p.m.|ReportField=ReportDate~20/11/2016|ReportField=ReportDateTime~20/11/2016 8:49:18 p.m.|ReportField=OutputName~Bill of Materials|ReportField=OutputType~BOM_PartType|ReportField=GeneratorName~BOM|ReportField=GeneratorDescription~Bill of Materials|ReportField=VariantName~None|ReportField=Address1~|ReportField=Address2~|ReportField=Address3~|ReportField=Address4~|ReportField=Application_BuildNumber~|ReportField=ApprovedBy~|ReportField=Author~|ReportField=CheckedBy~|ReportField=CompanyName~|ReportField=CurrentDate~20/11/2016|ReportField=CurrentTime~8:43:48 p.m.|ReportField=Date~|ReportField=DocumentFullPathAndName~C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\arduino.SchDoc|ReportField=DocumentName~arduino.SchDoc|ReportField=DocumentNumber~|ReportField=DrawnBy~|ReportField=Engineer~|ReportField=ImagePath~|ReportField=ModifiedDate~19/11/2016|ReportField=Organization~|ReportField=ProjectName~Arduino.PrjPcb|ReportField=Revision~|ReportField=Rule~|ReportField=SheetNumber~|ReportField=SheetTotal~|ReportField=Time~|ReportField=Title~|ReportField=DataSourceFileName~Arduino.PrjPcb|ReportField=DataSourceFullPath~C:\Users\Andrew\Documents\Altium projects\arduino tutorial\Arduino\Arduino.PrjPcb
+1|Cap|Capacitor|C1, C2, C3, C4, C7, C9, Y1, Y2|C0805|Cap|8
+2|Cap2|Capacitor|C8|C0805|Cap2|1
+3|LED3|Typical BLUE SiC LED|D1, D2, D3|3.5X2.8X1.9|LED3|3
+4|D Schottky|Schottky Diode|Diode1|SMB|D Schottky|1
+5|FTD232RL|FTDI Chip FT232RL Universal Asynchronous Receiver & Transmitter 3MBd, 28-Pin, SSOP|FTD1|SOP68P780X200-28N|FTD232RL|1
+6|1k x4 resistor network||Network1|4x resistor network|1k x4 resistor network|1
+7|Header 15|Header, 15-Pin|P1, P2|HDR1X15|Header 15|2
+8|Header 3X2|Header, 3-Pin, Dual row|P3|HDR2X3|Header 3X2|1
+9|Res1|Resistor|R2, R3, R4, R5|6-0805_M|Res1|4
+10|SW-PB|Switch|SW1|SPST|SW-PB|1
+11|ATMEGA328P-AU|Atmel ATMEGA328P-AU, 8bit AVR Microcontroller, 20MHz, 1 kB, 32 kB Flash, 32-Pin TQFP|U1|TQFP80P900X900X120-32N|ATMEGA328P-AU|1
+12|UA78M05CDCYR|n Linear Voltage Regulator IC Positive Fixed 1 Output 5V 500mA SOT-223-4|U2|SOT230P700X180-4N|UA78M05CDCYR|1
+13|USB1||USB1|micro usb|Component_1|1
+14|XTAL|Crystal Oscillator|X1|ABLS-16.000MHZ-B4-T|XTAL|1

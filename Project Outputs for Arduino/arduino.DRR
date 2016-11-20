@@ -1,0 +1,18 @@
+----------------------------------------------------------------------------------------------------------------------------------
+NCDrill File Report For: arduino.PcbDoc   20/11/2016  10:11:44 p.m.
+----------------------------------------------------------------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII RoundHoles File : arduino-RoundHoles.TXT
+ASCII SlotHoles File : arduino-SlotHoles.TXT
+
+Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
+----------------------------------------------------------------------------------------------------------------------------------
+T1      13mil (0.32mm)                                            Round             33        PTH        5.64inch (143.36mm)
+T2      24mil (0.6mm)                                             Slot              2         PTH        0.71inch (18.13mm)
+T3      26mil (0.65mm)                                            Slot              2         PTH        0.37inch (9.31mm)
+T4      35mil (0.9mm)                                             Round             36        PTH        9.09inch (230.91mm)
+----------------------------------------------------------------------------------------------------------------------------------
+Totals                                                                              73
+
+Total Processing Time (hh:mm:ss) : 00:00:00
